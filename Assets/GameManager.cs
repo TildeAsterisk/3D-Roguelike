@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 1:
                 //Offensive Upgrade
-                playerStats.Damage.AddModifier(5);
+                playerStats.Damage.AddModifier(10);
                 Time.timeScale = 1;
                 Debug.Log("Damage Upgrade Applied.");
                 upgradesPopup.SetActive(false);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 2:
                 //Defensive Upgrade
-                playerStats.Armour.AddModifier(5);
+                playerStats.Armour.AddModifier(10);
                 upgradesPopup.SetActive(false);
                 //upgradesShowing=false;
                 Time.timeScale = 1;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 3:
                 //Movement upgrade
-                playerStats.Speed.AddModifier(5);
+                playerStats.Speed.AddModifier(10);
                 upgradesPopup.SetActive(false);
                 //upgradesShowing=false;
                 Time.timeScale = 1;
