@@ -16,11 +16,6 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
-
         // Get the forward direction of the camera
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0; // Make sure y is 0 so we only get the horizontal direction
@@ -33,10 +28,14 @@ public class CharacterController : MonoBehaviour
 
         // Calculate the movement direction based on the camera's forward and right directions
         Vector3 movementDirection = cameraForward * Input.GetAxis("Vertical") + cameraRight * Input.GetAxis("Horizontal");
-
+        speed = playerStats.Speed.GetValue();
         transform.Translate(movementDirection * speed * Time.deltaTime, Space.World);
+        Vector3 rotDir=new Vector3(Mathf.Round(movementDirection.x),movementDirection.y,Mathf.Round(movementDirection.z) );
+        
+        if(rotDir!=Vector3.zero){transform.rotation = Quaternion.LookRotation (rotDir);}
+        /*
         if (movementDirection!=Vector3.zero){
             transform.rotation = Quaternion.LookRotation (movementDirection);
-        }
+        }*/
     }
 }

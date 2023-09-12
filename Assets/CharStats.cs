@@ -14,6 +14,7 @@ public class CharStats : MonoBehaviour
     public int killCount;
     public CharacterBehaviour charBhvr;
     public GameManager gameManager;
+    public Animator animator;
 
     void Start()
     {
@@ -21,6 +22,7 @@ public class CharStats : MonoBehaviour
         currentHealth = maxHealth;
         CharacterBehaviour charBhvr = GetComponent<CharacterBehaviour>();
         gameManager=GameObject.Find("Game Manager").GetComponent<GameManager>();
+        animator=GetComponent<Animator>();
     }
 
     void Update()
@@ -30,6 +32,7 @@ public class CharStats : MonoBehaviour
 
     public void TakeDamage (int damage, CharStats attacker)
     {
+        animator.Play("Base Layer.Hurt", 0, 0f);
         damage -= Armour.GetValue();
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
@@ -52,7 +55,11 @@ public class CharStats : MonoBehaviour
             gameManager.points++;
         }
         */
+        //play anim which calls Destroy(gameObject) event at the end
+        animator.Play("Base Layer.Die", 0, 0f);
+    }
 
+    public void DestroyObject(){
         Destroy(gameObject);
     }
 
@@ -62,6 +69,7 @@ public class CharStats : MonoBehaviour
     private float attackCooldown = 0f;
     public void Attack(CharStats targetStats){
         if(attackCooldown<=0f){
+            animator.Play("Base Layer.Attacking", 0, 0f);
             targetStats.TakeDamage(Damage.GetValue(), this);
             attackCooldown=1f/attackSpeed;
             Debug.Log("Attacking "+targetStats.gameObject.name+" DMG:"+Damage.GetValue());

@@ -10,11 +10,6 @@ public class GameManager : MonoBehaviour
     public GameObject[] spawnPrefabs;
     public int points;
     private CharStats playerStats;
-
-
-
-
-
     public Text pointsTxt;
     public void UpdateUIText(){
         pointsTxt.text = "Points: "+points;
@@ -54,7 +49,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 3:
                 //Movement upgrade
-                playerStats.Speed.AddModifier(10);
+                playerStats.Speed.AddModifier(1);
                 upgradesPopup.SetActive(false);
                 //upgradesShowing=false;
                 Time.timeScale = 1;
