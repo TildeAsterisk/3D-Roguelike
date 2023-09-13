@@ -9,10 +9,12 @@ public class CharCombat : MonoBehaviour
     private float attackCooldown = 0f;
     [SerializeReference]
     CharStats thisStats;
+    public Inventory playerInventory;
     // Start is called before the first frame update
     void Start()
     {
        thisStats = GetComponent<CharStats>();
+       playerInventory=GetComponent<Inventory>();
     }
 
     // Update is called once per frame

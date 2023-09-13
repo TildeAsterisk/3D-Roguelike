@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public Transform focus;
     private CharStats stats;
 
+    public float dist;
+
     // Start is called before the first frame update
     void Start()
     {

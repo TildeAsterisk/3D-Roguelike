@@ -12,17 +12,20 @@ public class CharStats : MonoBehaviour
     public Stat Damage;
     public Stat Armour;
     public int killCount;
-    public CharacterBehaviour charBhvr;
+    //public CharacterBehaviour charBhvr;
     public GameManager gameManager;
     public Animator animator;
+    //public Inventory inventory;
+    public Inventory playerInv;
 
     void Start()
     {
         //Health.SetBaseValue(100);
         currentHealth = maxHealth;
-        CharacterBehaviour charBhvr = GetComponent<CharacterBehaviour>();
+        //CharacterBehaviour charBhvr = GetComponent<CharacterBehaviour>();
         gameManager=GameObject.Find("Game Manager").GetComponent<GameManager>();
         animator=GetComponent<Animator>();
+        playerInv=GetComponent<Inventory>();
     }
 
     void Update()
@@ -73,6 +76,24 @@ public class CharStats : MonoBehaviour
             targetStats.TakeDamage(Damage.GetValue(), this);
             attackCooldown=1f/attackSpeed;
             Debug.Log("Attacking "+targetStats.gameObject.name+" DMG:"+Damage.GetValue());
+
+            ApplyInventoryEffects();
         }
+    }
+
+    public void ShootProjectile(){
+        //shoot a projectile
+        Debug.Log("Pew!");
+    }
+
+    public void ApplyInventoryEffects(){
+        //apply all effects
+        playerInv.items.ForEach(item =>
+        {
+            // Do something with item
+            if(item.ArtefactType is Item.Type.Projectile){
+                ShootProjectile();
+            }
+        });
     }
 }

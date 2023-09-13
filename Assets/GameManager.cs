@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public void UpdateUIText(){
         pointsTxt.text = "Points: "+points;
     }
+
+    //[SerializeField]
+    public List<Item> artefacts = new List<Item>();
     public GameObject upgradesPopup;
     public bool upgradesShowing=false;
     public void DisplayUpgradePopup(int choice_num=0){
@@ -79,7 +82,7 @@ public class GameManager : MonoBehaviour
         if (Time.time >= nextSpawnTime && spawning)
         {
             // Spawn a new character at a random position in the area.
-            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-10, 11), 0, UnityEngine.Random.Range(-10, 11));
+            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(player.position.x-10, player.position.x+11), 0, UnityEngine.Random.Range(player.position.z-10, player.position.z+11));
             int randomIndex = UnityEngine.Random.Range(0, spawnPrefabs.Length);
             GameObject newSpawn= Instantiate(spawnPrefabs[randomIndex], spawnPosition, Quaternion.identity);
             newSpawn.GetComponent<EnemyController>().focus=player;
