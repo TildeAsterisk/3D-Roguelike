@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 1:
                 //Offensive Upgrade
-                playerStats.Damage.AddModifier(10);
+                playerStats.Damage.AddModifier(25);
                 Time.timeScale = 1;
                 Debug.Log("Damage Upgrade Applied.");
                 upgradesPopup.SetActive(false);
@@ -82,7 +82,8 @@ public class GameManager : MonoBehaviour
         if (Time.time >= nextSpawnTime && spawning)
         {
             // Spawn a new character at a random position in the area.
-            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(player.position.x-10, player.position.x+11), 0, UnityEngine.Random.Range(player.position.z-10, player.position.z+11));
+            Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(player.position.x-15, player.position.x+15), 0, -15);
+            
             int randomIndex = UnityEngine.Random.Range(0, spawnPrefabs.Length);
             GameObject newSpawn= Instantiate(spawnPrefabs[randomIndex], spawnPosition, Quaternion.identity);
             newSpawn.GetComponent<EnemyController>().focus=player;
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Points Logic
-        if(points % 5 ==0 && points!=0 && !upgradesShowing){
+        if(points % 10 ==0 && points!=0 && !upgradesShowing){
             Time.timeScale = 0;
             DisplayUpgradePopup(0);
             upgradesShowing=true;

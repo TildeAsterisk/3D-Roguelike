@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
         agent.destination = focus.position;
         if(Vector3.Distance(transform.position,focus.position) <= agent.stoppingDistance){
             //Debug.Log("Attack!");
-            //stats.Attack(focus.GetComponent<CharStats>());
+            stats.Attack(focus.GetComponent<CharStats>());
             
             //Reverse
             focus.GetComponent<CharStats>().Attack(stats);

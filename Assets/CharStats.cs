@@ -17,6 +17,7 @@ public class CharStats : MonoBehaviour
     public Animator animator;
     //public Inventory inventory;
     public Inventory playerInv;
+    public Transform hpBar,manaBar;
 
     void Start()
     {
@@ -31,16 +32,29 @@ public class CharStats : MonoBehaviour
     void Update()
     {
         attackCooldown -= Time.deltaTime;
+
+        ApplyInventoryEffects();
     }
 
+    public GameObject dmgNumPopup;
+    public float dmgTxtLifetime=0.5f;
     public void TakeDamage (int damage, CharStats attacker)
-    {
+    {   //play anim and spawn dmg text
         animator.Play("Base Layer.Hurt", 0, 0f);
+        GameObject dmgNumTxtObj = Instantiate(dmgNumPopup, transform.position, dmgNumPopup.transform.rotation);
+        Destroy(dmgNumTxtObj,dmgTxtLifetime);
+        //display hp bar for some time
+        if(hpBar){
+            SetStatBarSize();
+        }
+
         damage -= Armour.GetValue();
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
+        dmgNumTxtObj.GetComponent<TextMesh>().text = "-"+damage.ToString();    //set text to damage value
+
         currentHealth -= damage;
-        Debug.Log(transform.name + " takes " + damage + " damage. HP:"+currentHealth);
+        //Debug.Log(transform.name + " takes " + damage + " damage. HP:"+currentHealth);
         if(currentHealth <= 0)
         {
             Die(attacker);
@@ -75,25 +89,32 @@ public class CharStats : MonoBehaviour
             animator.Play("Base Layer.Attacking", 0, 0f);
             targetStats.TakeDamage(Damage.GetValue(), this);
             attackCooldown=1f/attackSpeed;
-            Debug.Log("Attacking "+targetStats.gameObject.name+" DMG:"+Damage.GetValue());
-
-            ApplyInventoryEffects();
+            //Debug.Log("Attacking "+targetStats.gameObject.name+" DMG:"+Damage.GetValue());
         }
     }
 
-    public void ShootProjectile(){
+    public void ShootProjectile(Item projectileItem){
         //shoot a projectile
-        Debug.Log("Pew!");
+        GameObject bullet= Instantiate(projectileItem.prefab, new Vector3(transform.position.x,transform.position.y+1.7f,transform.position.z), transform.rotation);
+        bullet.GetComponent<ProjectileBhvr>().shooter=gameObject;
     }
 
     public void ApplyInventoryEffects(){
         //apply all effects
+        if(playerInv){
         playerInv.items.ForEach(item =>
         {
             // Do something with item
-            if(item.ArtefactType is Item.Type.Projectile){
-                ShootProjectile();
+            if(item.ArtefactType is Item.Type.Projectile && !item.isOnCooldown){
+                ShootProjectile(item);
+                playerInv.StartCooldown(item);
             }
         });
+        }
+    }
+
+    public void SetStatBarSize(){
+        float hpPercent = (float)currentHealth/(float)maxHealth;
+        hpBar.localScale = new Vector3(hpPercent*1.8f,hpBar.localScale.y,hpBar.localScale.z);
     }
 }

@@ -13,7 +13,11 @@ public class Item : ScriptableObject
         SpecialAbility
     }
     public Type ArtefactType;
-    public int size,speed,atk,def,hp,cooldown;
+    public int size,speed,atk,def,hp;
+    public float cooldown;
+    private float currentCooldown;
     public string[] modifiers;
+    public GameObject prefab;
+    public bool isOnCooldown=false;
 
 }

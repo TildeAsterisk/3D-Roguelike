@@ -16,12 +16,45 @@ public class Inventory : MonoBehaviour
         items.Remove(item);
     }
 
-    // void Update(){
-    //     //apply all effects
-    //     items.ForEach(item =>
-    //     {
-    //         // Do something with item
-    //         print(item.ArtefactType);
-    //     });
-    // }
+    IEnumerator CooldownTimer(Item item)
+    {
+        item.isOnCooldown = true;
+        float timeLeft = item.cooldown;
+
+        while (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+
+        item.isOnCooldown = false;
+        ResetCooldown(item);
+    }
+
+    public void StartCooldown(Item item)
+    {
+        StartCoroutine(CooldownTimer(item));
+    }
+
+    public void ResetCooldown(Item item)
+    {
+        StopCoroutine(CooldownTimer(item));
+        item.isOnCooldown = false;
+    }
+
+    void Start()
+    {
+        //Resetting all cooldowns
+        Debug.Log("Resetting all cooldowns.");
+        items.ForEach(item =>
+        {
+            ResetCooldown(item);
+        });
+    }
+
+   /*  public void ShootProjectile(Item projectileItem){
+        //shoot a projectile
+        GameObject bullet= Instantiate(projectileItem.prefab, new Vector3(transform.position.x,transform.position.y+1.7f,transform.position.z), transform.rotation);
+        bullet.GetComponent<ProjectileBhvr>().shooter=gameObject;
+    }  */
 }

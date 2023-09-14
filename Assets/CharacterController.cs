@@ -37,5 +37,10 @@ public class CharacterController : MonoBehaviour
         if (movementDirection!=Vector3.zero){
             transform.rotation = Quaternion.LookRotation (movementDirection);
         }*/
+
+        //RESTART MISSION
+        if (Input.GetKeyDown("r")){
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
 }

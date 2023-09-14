@@ -22,5 +22,7 @@ MonoBehaviour:
   atk: 10
   def: 0
   hp: 0
-  cooldown: 5
+  cooldown: 2.5
   modifiers: []
+  prefab: {fileID: 1034339132763920719, guid: 0872dbbfa97631749a3d818844783cbe, type: 3}
+  isOnCooldown: 1
