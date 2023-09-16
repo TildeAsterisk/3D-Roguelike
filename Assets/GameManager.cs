@@ -58,13 +58,13 @@ public class GameManager : MonoBehaviour
 
         UpgradeSprite1=newOffensiveItemUpgrade.icon;
         UpgradeNameTxt1.text=newOffensiveItemUpgrade.name;
-        upgradeDescTxt1.text="ATK: "+newOffensiveItemUpgrade.atk;
+        upgradeDescTxt1.text=newOffensiveItemUpgrade.description+"\nATK: "+newOffensiveItemUpgrade.atk;
         UpgradeSprite2=newDefensiveItemUpgrade.icon;
         UpgradeNameTxt2.text=newDefensiveItemUpgrade.name;
-        upgradeDescTxt2.text="DEF: "+newDefensiveItemUpgrade.def;
+        upgradeDescTxt2.text=newDefensiveItemUpgrade.description+"\nDEF: "+newDefensiveItemUpgrade.def;
         UpgradeSprite3=newMovementItemUpgrade.icon;
         UpgradeNameTxt3.text=newMovementItemUpgrade.name;
-        upgradeDescTxt3.text="SPD: "+newMovementItemUpgrade.speed;
+        upgradeDescTxt3.text=newMovementItemUpgrade.description+"\nSPD: "+newMovementItemUpgrade.speed;
         
         //Set Text Displays in Upgrade Menu according to Generated Items!
 

@@ -65,7 +65,7 @@ public class CharStats : MonoBehaviour
 
     public void Die(CharStats killedBy)
     {
-        Debug.Log(transform.name + " died. Destroying "+ gameObject.name);
+        //Debug.Log(transform.name + " died. Destroying "+ gameObject.name);
         //add killcount to killer, if goodguy, add points
         killedBy.killCount++;
         gameManager.points++;
