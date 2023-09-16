@@ -8,6 +8,10 @@ public class CharacterController : MonoBehaviour
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
 
+    public float zoomSpeed = 5.0f;
+    public float minZoom = 1.0f;
+    public float maxZoom = 50.0f;
+
     void Start(){
         playerStats=GetComponent<CharStats>();
         speed = playerStats.Speed.GetValue();
@@ -41,6 +45,12 @@ public class CharacterController : MonoBehaviour
         //RESTART MISSION
         if (Input.GetKeyDown("r")){
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+         float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if(scroll>0 || scroll <0){
+            float newSize = Camera.main.orthographicSize - scroll * zoomSpeed;
+            Camera.main.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
         }
     }
 }

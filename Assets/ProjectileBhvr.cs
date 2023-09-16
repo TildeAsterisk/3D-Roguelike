@@ -28,6 +28,11 @@ public class ProjectileBhvr : MonoBehaviour
         //Instantiate(explosionPrefab, position, rotation);
         if(collision.collider.gameObject!=shooter){
             Debug.Log("HIT! "+collision.collider.name);
+            CharStats targetStats = collision.gameObject.GetComponent<CharStats>();
+            if(targetStats!=null){
+                targetStats.TakeDamage(item.atk, targetStats);
+            }
+            //Destroy projectile
             Destroy(gameObject);
         }
     }
